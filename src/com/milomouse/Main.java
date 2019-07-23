@@ -25,7 +25,9 @@ public class Main {
 
         do {
             // Display menu and process
-            //TODO: Move menus to separate method???
+//TODO: CREATE NEW OBJECT ==> Menus
+//TODO: Add returnToMainOrQuit method to Menus Object
+//TODO: Move the following code to the Menus Object
             System.out.println();
             System.out.println("=================================================================");
             System.out.println("            Kentucky Craft Breweries and Distributors            ");
@@ -43,6 +45,7 @@ public class Main {
             System.out.println();
 
             try {
+//TODO: fix error ==>> java.lang.NumberFormatException
                 menuChoice = parseInt(readLine("Enter the number of your selection: "));
                 if (menuChoice == 0) {
                     System.out.println("You have chosen to end the program. Have a nice day!");
@@ -59,15 +62,15 @@ public class Main {
                     new DistributorToBrewery()
                         .saveDistributorToBrewery(distributorRecords, breweryRecords);
                 } else {
-                    System.out.println("You entered " + menuChoice + ". That is not a valid entry.");
-                    System.out.println("To generate a report, enter a menu choice between 1 and 4. Enter 0 to quit.");
+                    System.out
+                        .println("You entered " + menuChoice + ". That is not a valid entry.");
+                    System.out.println(
+                        "To generate a report, enter a menu choice between 1 and 4. Enter 0 to quit.");
                 } // if-else
             } catch (NumberFormatException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } // try-catch
-        }while (menuChoice != 0);
+            }  // try-catch
+        } while (menuChoice != 0);
 
     } // main
 } // class Main
