@@ -78,19 +78,23 @@ public class Main {
 
     // METHODS TO CREATE REPORTS
     private static void displayBreweryWithDistributor(List<String> distributorRecords, List<String> breweryRecords) {
-
+//TODO: Call a displayReport method???
     }
 
     private static void displayDistributorWithBreweries(List<String> distributorRecords, List<String> breweryRecords) {
-
+//TODO: Call a displayReport method???
     }
 
-    private static void saveBreweryWithDistributor(List<String> distributorRecords, List<String> breweryRecords) {
-//TODO: Figure out how to write to a file
+    private static void saveBreweryWithDistributor(List<String> distributorRecords,
+                                                   List<String> breweryRecords,
+                                                   String txtFilePath) {
+//TODO: Call a writeToFile method
     }
 
-    private static void saveDistributorWithBreweries(List<String> distributorRecords, List<String> breweryRecords) {
-
+    private static void saveDistributorWithBreweries(List<String> distributorRecords,
+                                                     List<String> breweryRecords,
+                                                     String txtFilePath) {
+//TODO: Call a writeToFile method
     }
 
 
