@@ -10,8 +10,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         // Variable Declarations
-        String kyDistributors = "data/KYDistributors.txt";  // Identify the distributors' data file
-        String breweryFile = "data/BreweryDataset.txt";  // Identify the brewery data file
+        String kyDistributors = "data/DistributorData.csv";  // Identify the distributors' data file
+        String breweryFile = "data/BreweryData.csv";  // Identify the brewery data file
         int menuChoice = 0;
 
         // Load the datasets into memory null;
