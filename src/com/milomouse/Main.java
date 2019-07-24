@@ -12,19 +12,19 @@ public class Main {
         // VARIABLE DECLARATIONS
         int menuChoice = 0;
         String kyDistributors = "data/DistributorData.csv"; // SOURCE CSV DATA FILE (file #1)
-        String breweryFile = "data/BreweryData.csv";        // Source CSV data file #2
-        String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt"; // Destination .TXT file #1
-        String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt"; // Destination .TXT file #2
+        String breweryFile = "data/BreweryData.csv";        // Source CSV DATA FILE (file #2}
+        String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt"; // DESTINATION .TXT file #1
+        String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt"; // DESTINATION .TXT file #2
 
 
         // CREATE INSTANCES OF THE DATA FILES AND LOAD THEM INTO MEMORY
         var textFileReader = new TextFileReader();
         var
             distributorRecords =
-            textFileReader.readFile(kyDistributors);        // Load the distributor records
+            textFileReader.readFile(kyDistributors);        // LOAD THE DISTRIBUTOR RECORDS
         var
             breweryRecords =
-            textFileReader.readFile(breweryFile);           // Load the brewery records
+            textFileReader.readFile(breweryFile);           // LOAD THE BREWERY RECORDS
 
 
         // DISPLAY MAIN MENU AND PROCESS USER INPUT
@@ -46,18 +46,17 @@ public class Main {
 
 
 //TODO: fix error ==>> java.lang.NumberFormatException ==>> non-numeric entered for menu choice
-//TODO: Add returnToMainOrQuit method for after report is displayed and saved(?)
 
             try {
                 menuChoice = parseInt(readLine("Enter the number of your selection: "));
                 if (menuChoice == 0) {
                     System.out.println("You have chosen to end the program. Have a nice day!");
                 } else if (menuChoice == 1) {
-                    displayBreweryWithDistributor(distributorRecords, breweryRecords);
+                    displayBreweryWithDistributors(distributorRecords, breweryRecords);
                 } else if (menuChoice == 2) {
                     displayDistributorWithBreweries(distributorRecords, breweryRecords);
                 } else if (menuChoice == 3) {
-                    saveBreweryWithDistributor(distributorRecords, breweryRecords, breweryWithDistributorsReport);
+                    saveBreweryWithDistributors(distributorRecords, breweryRecords, breweryWithDistributorsReport);
                 } else if (menuChoice == 4) {
                     saveDistributorWithBreweries(distributorRecords, breweryRecords, distributorWithBreweriesReport);
                 } else {
@@ -77,24 +76,25 @@ public class Main {
 
 
     // METHODS TO CREATE REPORTS
-    private static void displayBreweryWithDistributor(List<String> distributorRecords, List<String> breweryRecords) {
+    private static void displayBreweryWithDistributors(List<String> distributorRecords, List<String> breweryRecords) {
 //TODO: Call a displayReport method???
+        System.out.println(breweryRecords); //TESTING WHAT IS BEING LOADED ==>> REMOVE LATER
     }
 
     private static void displayDistributorWithBreweries(List<String> distributorRecords, List<String> breweryRecords) {
 //TODO: Call a displayReport method???
     }
 
-    private static void saveBreweryWithDistributor(List<String> distributorRecords,
-                                                   List<String> breweryRecords,
-                                                   String txtFilePath) {
-//TODO: Call a writeToFile method
+    private static void saveBreweryWithDistributors(List<String> distributorRecords,
+                                                    List<String> breweryRecords,
+                                                    String txtFilePath) {
+//TODO: Call a writeToFile method???
     }
 
     private static void saveDistributorWithBreweries(List<String> distributorRecords,
                                                      List<String> breweryRecords,
                                                      String txtFilePath) {
-//TODO: Call a writeToFile method
+//TODO: Call a writeToFile method???
     }
 
 
