@@ -3,22 +3,21 @@ package com.milomouse;
 import static java.lang.Integer.parseInt;
 import static jdk.nashorn.internal.runtime.ScriptingFunctions.readLine;
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        // Variable Declarations
-
+        // VARIABLE DECLARATIONS
         int menuChoice = 0;
-        String kyDistributors = "data/DistributorData.csv"; // Source CSV data file #1
+        String kyDistributors = "data/DistributorData.csv"; // SOURCE CSV DATA FILE (file #1)
         String breweryFile = "data/BreweryData.csv";        // Source CSV data file #2
         String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt"; // Destination .TXT file #1
         String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt"; // Destination .TXT file #2
 
 
-        // Create instances of the data files and Load them into memory
-
+        // CREATE INSTANCES OF THE DATA FILES AND LOAD THEM INTO MEMORY
         var textFileReader = new TextFileReader();
         var
             distributorRecords =
@@ -28,8 +27,7 @@ public class Main {
             textFileReader.readFile(breweryFile);           // Load the brewery records
 
 
-        // Display main menu and process user input
-
+        // DISPLAY MAIN MENU AND PROCESS USER INPUT
         do {
             System.out.println();
             System.out.println("=================================================================");
@@ -47,25 +45,21 @@ public class Main {
             System.out.println();
 
 
-//TODO: fix error ==>> java.lang.NumberFormatException
-//TODO: Add returnToMainOrQuit method to Menus Object
+//TODO: fix error ==>> java.lang.NumberFormatException ==>> non-numeric entered for menu choice
+//TODO: Add returnToMainOrQuit method for after report is displayed and saved(?)
 
             try {
                 menuChoice = parseInt(readLine("Enter the number of your selection: "));
                 if (menuChoice == 0) {
                     System.out.println("You have chosen to end the program. Have a nice day!");
                 } else if (menuChoice == 1) {
-                    new BreweryWithDistributors()
-                        .displayBreweryWithDistributor(distributorRecords, breweryRecords);
+                    displayBreweryWithDistributor(distributorRecords, breweryRecords);
                 } else if (menuChoice == 2) {
-                    new DistributorWithBreweries()
-                        .displayDistributorWithBreweries(distributorRecords, breweryRecords);
+                    displayDistributorWithBreweries(distributorRecords, breweryRecords);
                 } else if (menuChoice == 3) {
-                    new BreweryWithDistributors()
-                        .saveBreweryWithDistributor(distributorRecords, breweryRecords);
+                    saveBreweryWithDistributor(distributorRecords, breweryRecords, breweryWithDistributorsReport);
                 } else if (menuChoice == 4) {
-                    new DistributorWithBreweries()
-                        .saveDistributorWithBreweries(distributorRecords, breweryRecords);
+                    saveDistributorWithBreweries(distributorRecords, breweryRecords, distributorWithBreweriesReport);
                 } else {
                     System.out
                         .println("You entered " + menuChoice + ". That is not a valid entry.");
@@ -80,6 +74,26 @@ public class Main {
         } while (menuChoice != 0);
 
     } // main
+
+
+    // METHODS TO CREATE REPORTS
+    private static void displayBreweryWithDistributor(List<String> distributorRecords, List<String> breweryRecords) {
+
+    }
+
+    private static void displayDistributorWithBreweries(List<String> distributorRecords, List<String> breweryRecords) {
+
+    }
+
+    private static void saveBreweryWithDistributor(List<String> distributorRecords, List<String> breweryRecords) {
+//TODO: Figure out how to write to a file
+    }
+
+    private static void saveDistributorWithBreweries(List<String> distributorRecords, List<String> breweryRecords) {
+
+    }
+
+
 } // class Main
 
 
