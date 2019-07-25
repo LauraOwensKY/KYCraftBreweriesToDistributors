@@ -3,6 +3,7 @@ package com.milomouse;
 import static java.lang.Integer.parseInt;
 import static jdk.nashorn.internal.runtime.ScriptingFunctions.readLine;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -11,20 +12,19 @@ public class Main {
 
         // VARIABLE DECLARATIONS
         int menuChoice = 0;
-        String kyDistributors = "data/DistributorData.csv"; // SOURCE CSV DATA FILE (file #1)
-        String breweryFile = "data/BreweryData.csv";        // Source CSV DATA FILE (file #2}
-        String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt"; // DESTINATION .TXT file #1
-        String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt"; // DESTINATION .TXT file #2
-
+        String kyDistributors = "data/DistributorData.csv";     // SOURCE CSV DATA FILE (file #1)
+        String breweryFile = "data/BreweryData.csv";            // Source CSV DATA FILE (file #2}
+        String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt";    // DESTINATION .TXT file #1
+        String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt";  // DESTINATION .TXT file #2
 
         // CREATE INSTANCES OF THE DATA FILES AND LOAD THEM INTO MEMORY
         var textFileReader = new TextFileReader();
         var
             distributorRecords =
-            textFileReader.readFile(kyDistributors);        // LOAD THE DISTRIBUTOR RECORDS
+            textFileReader.readFile(kyDistributors);            // LOAD THE DISTRIBUTOR RECORDS
         var
             breweryRecords =
-            textFileReader.readFile(breweryFile);           // LOAD THE BREWERY RECORDS
+            textFileReader.readFile(breweryFile);               // LOAD THE BREWERY RECORDS
 
 
         // DISPLAY MAIN MENU AND PROCESS USER INPUT
@@ -77,30 +77,40 @@ public class Main {
 
     // METHODS TO CREATE REPORTS
     private static void displayBreweryWithDistributors(List<List<String>> distributors, List<List<String>> breweries) {
-//TODO: Call a displayReport method???
+
 
         System.out.println();
         System.out.println("=================================================================");
         System.out.println("       Kentucky Craft Breweries with Distributors Report         ");
         System.out.println("=================================================================");
         System.out.println();
+
+        // ITERATE THROUGH THE breweries USING i
+        // ITERATE THROUGH THE distributors USING j
+        // IF A distributor CITY MATCHES THE brewery CITY,
+        //     DISPLAY THE DISTRIBUTOR BENEATH THE BREWERY
+
         for (int i = 0; i < breweries.size(); i++){
-            //DISPLAY BREWERY AND SET UP REPORT HEADINGS
-            String breweryCity = breweries.get(i, 2);
+
+            String breweryCity = breweries.get(i).get(2);  // USE A VARIABLE FOR CITY COMPARISON
+
+            //DISPLAY BREWERY AND SET UP REPORT HEADING
             System.out.println();
             System.out.println("=================================================================");
             System.out.println();
-            System.out.println("BREWERY: " + breweries.get([i][0]);
-            System.out.println("         " +  breweries.get([i][1]) + "," + breweryCity + ", " + breweries.get([i][3]) + breweries.get([i][4]));
+            System.out.println("BREWERY: " + breweries.get(i).get(0));
+            System.out.println("         " + breweries.get(i).get(1) + "," + breweryCity + ", " + breweries.get(i).get(3) + breweries.get(i).get(4));
             System.out.println();
             System.out.printf("Distributors available in %s: %n", breweryCity);
             System.out.println("    NAME                                          ADDRESS");
 
             for (int j = 0; j < distributors.size(); j++){
                 //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
-                String distributorsCityState = distributors.get([j][4]) + distributors.get([j][5]);
-                if (distributors.contains(breweryCity))
-                    System.out.println(distributors.get([j]));
+                String distributorsCityState = distributors.get(j).get(4) + distributors.get(j).get(5);
+                if (distributors.contains(breweryCity)){
+                    System.out.println(distributors.get(j).);
+                }
+
             }
         }
             System.out.println(breweries); //TESTING WHAT IS BEING LOADED ==>> REMOVE LATER

@@ -19,8 +19,6 @@ public class TextFileReader {
             while ((line = reader.readLine()) != null) {
                 // use comma as separator
                 String[] singleRecord = line.split(csvSplitBy);
-
-
                 records.add(Collections.singletonList(line));
             }
 
