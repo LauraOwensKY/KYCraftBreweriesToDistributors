@@ -76,23 +76,49 @@ public class Main {
 
 
     // METHODS TO CREATE REPORTS
-    private static void displayBreweryWithDistributors(List<String> distributorRecords, List<String> breweryRecords) {
+    private static void displayBreweryWithDistributors(List<List<String>> distributors, List<List<String>> breweries) {
 //TODO: Call a displayReport method???
-        System.out.println(breweryRecords); //TESTING WHAT IS BEING LOADED ==>> REMOVE LATER
+
+        System.out.println();
+        System.out.println("=================================================================");
+        System.out.println("       Kentucky Craft Breweries with Distributors Report         ");
+        System.out.println("=================================================================");
+        System.out.println();
+        for (int i = 0; i < breweries.size(); i++){
+            //DISPLAY BREWERY AND SET UP REPORT HEADINGS
+            String breweryCity = breweries.get(i, 2);
+            System.out.println();
+            System.out.println("=================================================================");
+            System.out.println();
+            System.out.println("BREWERY: " + breweries.get([i][0]);
+            System.out.println("         " +  breweries.get([i][1]) + "," + breweryCity + ", " + breweries.get([i][3]) + breweries.get([i][4]));
+            System.out.println();
+            System.out.printf("Distributors available in %s: %n", breweryCity);
+            System.out.println("    NAME                                          ADDRESS");
+
+            for (int j = 0; j < distributors.size(); j++){
+                //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
+                String distributorsCityState = distributors.get([j][4]) + distributors.get([j][5]);
+                if (distributors.contains(breweryCity))
+                    System.out.println(distributors.get([j]));
+            }
+        }
+            System.out.println(breweries); //TESTING WHAT IS BEING LOADED ==>> REMOVE LATER
+
     }
 
-    private static void displayDistributorWithBreweries(List<String> distributorRecords, List<String> breweryRecords) {
+    private static void displayDistributorWithBreweries(List<List<String>> distributorRecords, List<List<String>> breweryRecords) {
 //TODO: Call a displayReport method???
     }
 
-    private static void saveBreweryWithDistributors(List<String> distributorRecords,
-                                                    List<String> breweryRecords,
+    private static void saveBreweryWithDistributors(List<List<String>> distributorRecords,
+                                                    List<List<String>> breweryRecords,
                                                     String txtFilePath) {
 //TODO: Call a writeToFile method???
     }
 
-    private static void saveDistributorWithBreweries(List<String> distributorRecords,
-                                                     List<String> breweryRecords,
+    private static void saveDistributorWithBreweries(List<List<String>> distributorRecords,
+                                                     List<List<String>> breweryRecords,
                                                      String txtFilePath) {
 //TODO: Call a writeToFile method???
     }

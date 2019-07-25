@@ -3,18 +3,27 @@ package com.milomouse;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TextFileReader {
 
-    public List<String> readFile(String filename){
-        List<String> records = new ArrayList<String>();
+    public List<List<String>> readFile(String filename){
+        List<List<String>> records = new ArrayList<>(); //TWO DIMENSIONAL TABLE
+
+        String line;
+        String csvSplitBy = ",";
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename));
-            String line;
             while ((line = reader.readLine()) != null) {
-                records.add(line);
+                // use comma as separator
+                String[] singleRecord = line.split(csvSplitBy);
+
+
+                records.add(Collections.singletonList(line));
             }
+
             reader.close();
             return records;
         }
