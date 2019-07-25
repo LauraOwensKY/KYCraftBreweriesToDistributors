@@ -13,19 +13,14 @@ public class Main {
         // VARIABLE DECLARATIONS
         int menuChoice = 0;
         String kyDistributors = "data/DistributorData.csv";     // SOURCE CSV DATA FILE (file #1)
-        String breweryFile = "data/BreweryData.csv";            // Source CSV DATA FILE (file #2}
+        String breweryFile = "data/BreweryData.csv";            // SOURCE CSV DATA FILE (file #2}
         String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt";    // DESTINATION .TXT file #1
         String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt";  // DESTINATION .TXT file #2
 
         // CREATE INSTANCES OF THE DATA FILES AND LOAD THEM INTO MEMORY
         var textFileReader = new TextFileReader();
-        var
-            distributorRecords =
-            textFileReader.readFile(kyDistributors);            // LOAD THE DISTRIBUTOR RECORDS
-        var
-            breweryRecords =
-            textFileReader.readFile(breweryFile);               // LOAD THE BREWERY RECORDS
-
+        var distributors = textFileReader.readFile(kyDistributors);   // LOAD THE DISTRIBUTOR RECORDS
+        var breweries = textFileReader.readFile(breweryFile);          // LOAD THE BREWERY RECORDS
 
         // DISPLAY MAIN MENU AND PROCESS USER INPUT
         do {
@@ -52,13 +47,14 @@ public class Main {
                 if (menuChoice == 0) {
                     System.out.println("You have chosen to end the program. Have a nice day!");
                 } else if (menuChoice == 1) {
-                    displayBreweryWithDistributors(distributorRecords, breweryRecords);
+                    displayBreweryWithDistributors(distributors, breweries);
+
                 } else if (menuChoice == 2) {
-                    displayDistributorWithBreweries(distributorRecords, breweryRecords);
+                    displayDistributorWithBreweries(distributors, breweries);
                 } else if (menuChoice == 3) {
-                    saveBreweryWithDistributors(distributorRecords, breweryRecords, breweryWithDistributorsReport);
+                    saveBreweryWithDistributors(distributors, breweries, breweryWithDistributorsReport);
                 } else if (menuChoice == 4) {
-                    saveDistributorWithBreweries(distributorRecords, breweryRecords, distributorWithBreweriesReport);
+                    saveDistributorWithBreweries(distributors, breweries, distributorWithBreweriesReport);
                 } else {
                     System.out
                         .println("You entered " + menuChoice + ". That is not a valid entry.");
@@ -77,7 +73,7 @@ public class Main {
 
     // METHODS TO CREATE REPORTS
     private static void displayBreweryWithDistributors(List<List<String>> distributors, List<List<String>> breweries) {
-
+//TODO: Call a displayReport method???
 
         System.out.println();
         System.out.println("=================================================================");
@@ -92,7 +88,7 @@ public class Main {
 
         for (int i = 0; i < breweries.size(); i++){
 
-            String breweryCity = breweries.get(i).get(2);  // USE A VARIABLE FOR CITY COMPARISON
+            String breweryCity = breweries.get(i).get(2);
 
             //DISPLAY BREWERY AND SET UP REPORT HEADING
             System.out.println();
@@ -107,8 +103,8 @@ public class Main {
             for (int j = 0; j < distributors.size(); j++){
                 //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
                 String distributorsCityState = distributors.get(j).get(4) + distributors.get(j).get(5);
-                if (distributors.contains(breweryCity)){
-                    System.out.println(distributors.get(j).);
+                if (distributors.get(j).get(4).contains(breweries.get(i).get(2))){
+                    System.out.println(distributors.get(j).get(1));  //TODO: FORMAT OUTPUT TO PRINT NAME AND ADDRESS
                 }
 
             }
