@@ -49,7 +49,7 @@ public class Main {
                 if (menuChoice == 0) {
                     System.out.println("You have chosen to end the program. Have a nice day!");
                 } else if (menuChoice == 1) {
-                    displayBreweryWithDistributors(distributors, breweries)
+                    displayBreweryWithDistributors(distributors, breweries);
                 } else if (menuChoice == 2) {
                     displayDistributorWithBreweries(distributors, breweries);
                 } else if (menuChoice == 3) {
@@ -64,7 +64,7 @@ public class Main {
                 } // if-else
 
             } catch (NumberFormatException e) {
-                e.printStackTrace();
+                System.out.println("That is not a valid entry. Enter a menu choice between 1 and 4. Enter 0 to quit.");
             }  // try-catch
 
         } while (menuChoice != 0);
@@ -88,31 +88,30 @@ public class Main {
         //     DISPLAY THE DISTRIBUTOR BENEATH THE BREWERY
 
         for (int i = 0; i < breweries.size(); i++){
-
+            var brewery = breweries.get(i);
             try {
-                String breweryCity = breweries.get(i).get(2);
+                String breweryCity = brewery.get(2);
 
                 //DISPLAY BREWERY AND SET UP REPORT HEADING
                 System.out.println();
                 System.out
                     .println("=================================================================");
                 System.out.println();
-                System.out.println("BREWERY: " + breweries.get(i).get(0));
+                System.out.println("BREWERY: " + brewery.get(0));
                 System.out.println(
-                    "         " + breweries.get(i).get(1) + "," + breweryCity + ", " + breweries
-                        .get(i).get(3) + breweries.get(i).get(4));
+                    "         " + brewery.get(1) + "," + breweryCity + ", " + brewery.get(3) + brewery.get(4));
                 System.out.println();
                 System.out.printf("Distributors available in %s: %n", breweryCity);
                 System.out.println("    NAME                                          ADDRESS");
 
                 for (int j = 0; j < distributors.size(); j++) {
                     //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
+                    var distributor = distributors.get(j);
                     String
                         distributorsCityState =
-                        distributors.get(j).get(4) + distributors.get(j).get(5);
-                    if (distributors.get(j).get(4).contains(breweries.get(i).get(2))) {
-                        System.out.println(distributors.get(j)
-                            .get(1));  //TODO: FORMAT OUTPUT TO PRINT NAME AND ADDRESS
+                        distributor.get(4) + distributor.get(5);
+                    if (distributor.get(4).contains(brewery.get(2))) {
+                        System.out.println(distributor.get(1));  //TODO: FORMAT OUTPUT TO PRINT NAME AND ADDRESS
                     }
 
                 }

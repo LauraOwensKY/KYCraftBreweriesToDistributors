@@ -3,6 +3,7 @@ package com.milomouse;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,8 +19,7 @@ public class TextFileReader {
             while ((line = reader.readLine()) != null) {
                 // SEPARATE THE filename INTO EACH singleRecord -- USING csvSplitBy CHARACTER
                 String[] singleRecord = line.split(csvSplitBy); // singleRecord CONTAINS THE ARRAY OF RECORDS IN filename
-  //              System.out.println(Collections.singletonList(line));
-                records.add(Collections.singletonList(line));   // ADD THE INDIVIDUAL RECORD TO records
+                records.add(Arrays.asList(singleRecord));   // ADD THE INDIVIDUAL RECORD TO records
             }
             reader.close();
             return records; // SEND BACK THE FILE filename RECORDS SEPARATED BY THE csvSplitBy CHARACTER
