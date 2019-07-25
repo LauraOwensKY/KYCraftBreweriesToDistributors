@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IndexOutOfBoundsException, IOException {
 
         // VARIABLE DECLARATIONS
         int menuChoice = 0;
@@ -21,7 +21,9 @@ public class Main {
         var textFileReader = new TextFileReader();
         var distributors = textFileReader.readFile(kyDistributors);   // LOAD THE DISTRIBUTOR RECORDS
         var breweries = textFileReader.readFile(breweryFile);          // LOAD THE BREWERY RECORDS
+// ************************************
 
+// **************************************
         // DISPLAY MAIN MENU AND PROCESS USER INPUT
         do {
             System.out.println();
@@ -47,8 +49,7 @@ public class Main {
                 if (menuChoice == 0) {
                     System.out.println("You have chosen to end the program. Have a nice day!");
                 } else if (menuChoice == 1) {
-                    displayBreweryWithDistributors(distributors, breweries);
-
+                    displayBreweryWithDistributors(distributors, breweries)
                 } else if (menuChoice == 2) {
                     displayDistributorWithBreweries(distributors, breweries);
                 } else if (menuChoice == 3) {
@@ -72,7 +73,7 @@ public class Main {
 
 
     // METHODS TO CREATE REPORTS
-    private static void displayBreweryWithDistributors(List<List<String>> distributors, List<List<String>> breweries) {
+    private static void displayBreweryWithDistributors(List<List<String>> distributors, List<List<String>> breweries) throws IndexOutOfBoundsException {
 //TODO: Call a displayReport method???
 
         System.out.println();
@@ -88,26 +89,36 @@ public class Main {
 
         for (int i = 0; i < breweries.size(); i++){
 
-            String breweryCity = breweries.get(i).get(2);
+            try {
+                String breweryCity = breweries.get(i).get(2);
 
-            //DISPLAY BREWERY AND SET UP REPORT HEADING
-            System.out.println();
-            System.out.println("=================================================================");
-            System.out.println();
-            System.out.println("BREWERY: " + breweries.get(i).get(0));
-            System.out.println("         " + breweries.get(i).get(1) + "," + breweryCity + ", " + breweries.get(i).get(3) + breweries.get(i).get(4));
-            System.out.println();
-            System.out.printf("Distributors available in %s: %n", breweryCity);
-            System.out.println("    NAME                                          ADDRESS");
+                //DISPLAY BREWERY AND SET UP REPORT HEADING
+                System.out.println();
+                System.out
+                    .println("=================================================================");
+                System.out.println();
+                System.out.println("BREWERY: " + breweries.get(i).get(0));
+                System.out.println(
+                    "         " + breweries.get(i).get(1) + "," + breweryCity + ", " + breweries
+                        .get(i).get(3) + breweries.get(i).get(4));
+                System.out.println();
+                System.out.printf("Distributors available in %s: %n", breweryCity);
+                System.out.println("    NAME                                          ADDRESS");
 
-            for (int j = 0; j < distributors.size(); j++){
-                //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
-                String distributorsCityState = distributors.get(j).get(4) + distributors.get(j).get(5);
-                if (distributors.get(j).get(4).contains(breweries.get(i).get(2))){
-                    System.out.println(distributors.get(j).get(1));  //TODO: FORMAT OUTPUT TO PRINT NAME AND ADDRESS
+                for (int j = 0; j < distributors.size(); j++) {
+                    //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
+                    String
+                        distributorsCityState =
+                        distributors.get(j).get(4) + distributors.get(j).get(5);
+                    if (distributors.get(j).get(4).contains(breweries.get(i).get(2))) {
+                        System.out.println(distributors.get(j)
+                            .get(1));  //TODO: FORMAT OUTPUT TO PRINT NAME AND ADDRESS
+                    }
+
                 }
-
-            }
+            }  catch (IndexOutOfBoundsException e){
+                e.printStackTrace();
+            }  // try-catch;
         }
             System.out.println(breweries); //TESTING WHAT IS BEING LOADED ==>> REMOVE LATER
 
@@ -115,18 +126,39 @@ public class Main {
 
     private static void displayDistributorWithBreweries(List<List<String>> distributorRecords, List<List<String>> breweryRecords) {
 //TODO: Call a displayReport method???
+
+
+        System.out.println();
+        System.out.println("=================================================================");
+        System.out.println("       Kentucky Distributors with Craft Breweries Report         ");
+        System.out.println("=================================================================");
+        System.out.println();
+
     }
 
     private static void saveBreweryWithDistributors(List<List<String>> distributorRecords,
                                                     List<List<String>> breweryRecords,
                                                     String txtFilePath) {
-//TODO: Call a writeToFile method???
+
+        System.out.println();
+        System.out.println("=================================================================");
+        System.out.println("    Saving Kentucky Craft Breweries with Distributors Report     ");
+        System.out.println("=================================================================");
+        System.out.println();
+
     }
 
     private static void saveDistributorWithBreweries(List<List<String>> distributorRecords,
                                                      List<List<String>> breweryRecords,
                                                      String txtFilePath) {
 //TODO: Call a writeToFile method???
+
+        System.out.println();
+        System.out.println("=================================================================");
+        System.out.println("    Saving Kentucky Distributors with Craft Breweries Report     ");
+        System.out.println("=================================================================");
+        System.out.println();
+
     }
 
 
