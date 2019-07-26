@@ -22,7 +22,7 @@ public class TextFileReader {
                 records.add(Arrays.asList(singleRecord));   // ADD THE INDIVIDUAL RECORD TO records
             }
             reader.close();
-            return records; // SEND BACK THE FILE filename RECORDS SEPARATED BY THE csvSplitBy CHARACTER
+            return records;         // SEND BACK THE FILE filename RECORDS SEPARATED BY THE csvSplitBy CHARACTER
         }
         catch (Exception e) {
             System.err.format("Exception occurred trying to read '%s'.", filename);

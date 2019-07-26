@@ -5,6 +5,8 @@ import static jdk.nashorn.internal.runtime.ScriptingFunctions.readLine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import jdk.swing.interop.SwingInterOpUtils;
 
 public class Main {
 
@@ -21,6 +23,9 @@ public class Main {
         var textFileReader = new TextFileReader();
         var distributors = textFileReader.readFile(kyDistributors);   // LOAD THE DISTRIBUTOR RECORDS
         var breweries = textFileReader.readFile(breweryFile);          // LOAD THE BREWERY RECORDS
+        List<String> brewery = new ArrayList<>();
+        List<String> distributor = new ArrayList<>();
+
 // ************************************
 
 // **************************************
@@ -42,28 +47,32 @@ public class Main {
             System.out.println();
 
 
-//TODO: fix error ==>> java.lang.NumberFormatException ==>> non-numeric entered for menu choice
+//TODO: Change menu entry processing to switch/case statement
 
             try {
-                menuChoice = parseInt(readLine("Enter the number of your selection: "));
-                if (menuChoice == 0) {
-                    System.out.println("You have chosen to end the program. Have a nice day!");
-                } else if (menuChoice == 1) {
-                    displayBreweryWithDistributors(distributors, breweries);
-                } else if (menuChoice == 2) {
-                    displayDistributorWithBreweries(distributors, breweries);
-                } else if (menuChoice == 3) {
-                    saveBreweryWithDistributors(distributors, breweries, breweryWithDistributorsReport);
-                } else if (menuChoice == 4) {
-                    saveDistributorWithBreweries(distributors, breweries, distributorWithBreweriesReport);
+                String menuChoiceInput = readLine("Enter the number of your selection: ");
+                if (Pattern.matches("\\d+", menuChoiceInput)) { // CHECK FOR NUMERIC ENTRY
+                    menuChoice = parseInt(menuChoiceInput);           // CONVERT TO NUMERIC FOR BOOLEAN COMPARISON
+                    if (menuChoice == 0) {
+                        System.out.println("You have chosen to end the program. Have a nice day!");
+                    } else if (menuChoice == 1) {
+                        displayBreweryWithDistributors(distributors, distributor, breweries, brewery);
+                    } else if (menuChoice == 2) {
+                        displayDistributorWithBreweries(distributors, distributor, breweries, brewery);
+                    } else if (menuChoice == 3) {
+                        saveBreweryWithDistributors(distributors, distributor, breweries, brewery, breweryWithDistributorsReport);
+                    } else if (menuChoice == 4) {
+                        saveDistributorWithBreweries(distributors, distributor, breweries, brewery,
+                            distributorWithBreweriesReport);
+                    }
                 } else {
                     System.out
-                        .println("You entered " + menuChoice + ". That is not a valid entry.");
+                        .println("You entered " + menuChoiceInput + ". That is not a valid entry.");
                     System.out.println(
                         "To generate a report, enter a menu choice between 1 and 4. Enter 0 to quit.");
                 } // if-else
-
             } catch (NumberFormatException e) {
+                System.out.println("You need to enter a menu option.");
                 System.out.println("That is not a valid entry. Enter a menu choice between 1 and 4. Enter 0 to quit.");
             }  // try-catch
 
@@ -73,9 +82,10 @@ public class Main {
 
 
     // METHODS TO CREATE REPORTS
-    private static void displayBreweryWithDistributors(List<List<String>> distributors, List<List<String>> breweries) throws IndexOutOfBoundsException {
-//TODO: Call a displayReport method???
+    private static void displayBreweryWithDistributors(List<List<String>> distributors, List<String> distributor,
+                                                       List<List<String>> breweries, List<String> brewery) throws IndexOutOfBoundsException {
 
+ //TODO: Move Headings to a displayReport method with String reportTitle parameter
         System.out.println();
         System.out.println("=================================================================");
         System.out.println("       Kentucky Craft Breweries with Distributors Report         ");
@@ -87,43 +97,37 @@ public class Main {
         // IF A distributor CITY MATCHES THE brewery CITY,
         //     DISPLAY THE DISTRIBUTOR BENEATH THE BREWERY
 
-        for (int i = 0; i < breweries.size(); i++){
-            var brewery = breweries.get(i);
-            try {
-                String breweryCity = brewery.get(2);
+        for (int i = 1; i < breweries.size(); i++){ // SKIP HEADER LINE IN DATA FILE
+            brewery = breweries.get(i);             // LOAD A BREWERY RECORD
+                                                    // DISPLAY BREWERY AND SET UP REPORT HEADING
+            System.out.println();
+            System.out.println("=================================================================");
+            System.out.println();
+            System.out.println("BREWERY: " + brewery.get(0));
+            System.out.printf("        %s, %s, %s %s%n", brewery.get(1), brewery.get(2), brewery.get(3), brewery.get(4));
+            System.out.println();
+            System.out.printf("DISTRIBUTORS AVAILABLE IN %s: %n%n", brewery.get(2).toUpperCase());
+            System.out.println("    NAME            ADDRESS");
 
-                //DISPLAY BREWERY AND SET UP REPORT HEADING
-                System.out.println();
-                System.out
-                    .println("=================================================================");
-                System.out.println();
-                System.out.println("BREWERY: " + brewery.get(0));
-                System.out.println(
-                    "         " + brewery.get(1) + "," + breweryCity + ", " + brewery.get(3) + brewery.get(4));
-                System.out.println();
-                System.out.printf("Distributors available in %s: %n", breweryCity);
-                System.out.println("    NAME                                          ADDRESS");
-
-                for (int j = 0; j < distributors.size(); j++) {
-                    //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
-                    var distributor = distributors.get(j);
-                    String
-                        distributorsCityState =
-                        distributor.get(4) + distributor.get(5);
-                    if (distributor.get(4).contains(brewery.get(2))) {
-                        System.out.println(distributor.get(1));  //TODO: FORMAT OUTPUT TO PRINT NAME AND ADDRESS
+            try {                                     //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
+                for (int j = 1; j < distributors.size(); j++) { // SKIP HEADER LINE IN DATA FILE
+                    distributor = distributors.get(j);          // LOAD A DISTRIBUTOR RECORD
+                    String dCityCompare = distributor.get(4).toLowerCase();
+                    String bCityCompare = brewery.get(2).toLowerCase();
+                    if (dCityCompare.equals(bCityCompare)) {    // IF CITIES MATCH, DISPLAY DISTRIBUTOR AND STREET ADDRESS
+                        System.out.printf("%s, %s%n", distributor.get(1), distributor.get(3));
                     }
-
                 }
             }  catch (IndexOutOfBoundsException e){
                 e.printStackTrace();
             }  // try-catch;
         }
-            System.out.println(breweries); //TESTING WHAT IS BEING LOADED ==>> REMOVE LATER
+     }
 
-    }
-
-    private static void displayDistributorWithBreweries(List<List<String>> distributorRecords, List<List<String>> breweryRecords) {
+    private static void displayDistributorWithBreweries(List<List<String>> distributorRecords,
+                                                        List<String> distributor,
+                                                        List<List<String>> breweryRecords,
+                                                        List<String> brewery) {
 //TODO: Call a displayReport method???
 
 
@@ -136,7 +140,9 @@ public class Main {
     }
 
     private static void saveBreweryWithDistributors(List<List<String>> distributorRecords,
+                                                    List<String> distributor,
                                                     List<List<String>> breweryRecords,
+                                                    List<String> brewery,
                                                     String txtFilePath) {
 
         System.out.println();
@@ -148,7 +154,9 @@ public class Main {
     }
 
     private static void saveDistributorWithBreweries(List<List<String>> distributorRecords,
+                                                     List<String> distributor,
                                                      List<List<String>> breweryRecords,
+                                                     List<String> brewery,
                                                      String txtFilePath) {
 //TODO: Call a writeToFile method???
 
