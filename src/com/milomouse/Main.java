@@ -37,7 +37,7 @@ public class Main {
             System.out.println("=================================================================");
             System.out.println();
             System.out.println("Create a report showing Brewery and Distributor data based on the location.");
-            System.out.println("The following options are available:");
+            System.out.println("Choose one of the stunning options below:");
             System.out.println();
             System.out.println(" 1. Display a Brewery with Distributors Report");
             System.out.println(" 2. Display Distributor with Breweries Report");
@@ -64,16 +64,28 @@ public class Main {
                     } else if (menuChoice == 4) {
                         saveDistributorWithBreweries(distributors, distributor, breweries, brewery,
                             distributorWithBreweriesReport);
+                    } else {
+                        System.out.println("@@@");
+                        System.out.println("@#%#@#%#@#%@ WUZZZAT? @#%#@#%#@#%@");
+                        System.out.printf("Although %s IS a number, it's not a valid menu choice!%n", menuChoiceInput);
+                        System.out.println("Don't get snippy. Just pick a report, any report, as long as it's 1 thru 4.");
+                        System.out.println("Or, if you've really had enough, and it's time to EXIT ====>> enter 0.");
+                        System.out.println();
                     }
                 } else {
                     System.out
                         .println("You entered " + menuChoiceInput + ". That is not a valid entry.");
                     System.out.println(
                         "To generate a report, enter a menu choice between 1 and 4. Enter 0 to quit.");
+                    System.out.println("If you entered a bad menu choice the first time through,");
+                    System.out.println("the program terminates. BUT, if you've already entered a proper");
+                    System.out.println("menu choice, you'll probably go back to the main menu.");
+                    System.out.println("For now, BLNT ====>> Better Luck Next Time!");
                 } // if-else
             } catch (NumberFormatException e) {
-                System.out.println("You need to enter a menu option.");
-                System.out.println("That is not a valid entry. Enter a menu choice between 1 and 4. Enter 0 to quit.");
+                System.out.println("That is not a valid entry. You need to enter a menu option.");
+                System.out.println("Enter a menu choice between 1 and 4. Enter 0 to quit.");
+                System.out.println("BLNT ====>> Better Luck Next Time! Clearly");
             }  // try-catch
 
         } while (menuChoice != 0);
@@ -82,6 +94,8 @@ public class Main {
 
 
     // METHODS TO CREATE REPORTS
+//TODO: MAKE displayBreweryWithDistributors & displayDistributorWithBreweries CALL THE ReportDisplay method
+
     private static void displayBreweryWithDistributors(List<List<String>> distributors, List<String> distributor,
                                                        List<List<String>> breweries, List<String> brewery) throws IndexOutOfBoundsException {
 
