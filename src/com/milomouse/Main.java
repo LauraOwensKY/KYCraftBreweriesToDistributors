@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-import jdk.swing.interop.SwingInterOpUtils;
 
 public class Main {
 
@@ -16,11 +15,12 @@ public class Main {
         int menuChoice = 0;
         String kyDistributors = "data/DistributorData.csv";     // SOURCE CSV DATA FILE (file #1)
         String breweryFile = "data/BreweryData.csv";            // SOURCE CSV DATA FILE (file #2}
-        String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.txt";    // DESTINATION .TXT file #1
-        String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.txt";  // DESTINATION .TXT file #2
+        String breweryWithDistributorsReport = "data/BreweryWithDistributorsReport.csv";    // DESTINATION .TXT file #1
+        String distributorWithBreweriesReport = "data/DistributorWithBreweriesReport.csv";  // DESTINATION .TXT file #2
 
         // CREATE INSTANCES OF THE DATA FILES AND LOAD THEM INTO MEMORY
-        var textFileReader = new TextFileReader();
+        var textFileWriter = new CSVFileWriter();
+        var textFileReader = new CSVFileReader();
         var distributors = textFileReader.readFile(kyDistributors);   // LOAD THE DISTRIBUTOR RECORDS
         var breweries = textFileReader.readFile(breweryFile);          // LOAD THE BREWERY RECORDS
         List<String> brewery = new ArrayList<>();
@@ -107,7 +107,7 @@ public class Main {
             System.out.printf("        %s, %s, %s %s%n", brewery.get(1), brewery.get(2), brewery.get(3), brewery.get(4));
             System.out.println();
             System.out.printf("DISTRIBUTORS AVAILABLE IN %s: %n%n", brewery.get(2).toUpperCase());
-            System.out.println("    NAME            ADDRESS");
+            System.out.println("    NAME      STREET ADDRESS");
 
             try {                                     //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
                 for (int j = 1; j < distributors.size(); j++) { // SKIP HEADER LINE IN DATA FILE
@@ -124,24 +124,55 @@ public class Main {
         }
      }
 
-    private static void displayDistributorWithBreweries(List<List<String>> distributorRecords,
+    private static void displayDistributorWithBreweries(List<List<String>> distributors,
                                                         List<String> distributor,
-                                                        List<List<String>> breweryRecords,
+                                                        List<List<String>> breweries,
                                                         List<String> brewery) {
-//TODO: Call a displayReport method???
-
-
+//TODO: Move Headings to a displayReport method with String reportTitle parameter
         System.out.println();
         System.out.println("=================================================================");
         System.out.println("       Kentucky Distributors with Craft Breweries Report         ");
         System.out.println("=================================================================");
         System.out.println();
 
-    }
+        // ITERATE THROUGH THE breweries USING i
+        //   ITERATE THROUGH THE distributors USING j
+        //     IF A distributor CITY MATCHES THE brewery CITY,
+        //       DISPLAY THE DISTRIBUTOR BENEATH THE BREWERY
 
-    private static void saveBreweryWithDistributors(List<List<String>> distributorRecords,
+        for (int i = 1; i < distributors.size(); i++){ // SKIP HEADER LINE IN DATA FILE
+            distributor = distributors.get(i);             // LOAD A BREWERY RECORD
+            // DISPLAY BREWERY AND SET UP REPORT HEADING
+            System.out.println();
+            System.out.println("=================================================================");
+            System.out.println();
+            System.out.println("DISTRIBUTOR: " + distributor.get(1));
+            System.out.printf("        %s, %s, %s %s%n", distributor.get(3), distributor.get(4), distributor.get(5), distributor.get(4));
+            System.out.println();
+            System.out.printf("BREWERIES OPERATING IN %s: %n%n", distributor.get(4).toUpperCase());
+            System.out.println("    NAME        STREET ADDRESS");
+
+            try {                                     //DISPLAY DISTRIBUTORS IN THE SAME CITIES AS THE BREWERIES
+                for (int j = 1; j < breweries.size(); j++) { // SKIP HEADER LINE IN DATA FILE
+                    brewery = breweries.get(j);          // LOAD A DISTRIBUTOR RECORD
+                    String dCityCompare = distributor.get(4).toLowerCase();
+                    String bCityCompare = brewery.get(2).toLowerCase();
+                    if (dCityCompare.equals(bCityCompare)) {    // IF CITIES MATCH, DISPLAY DISTRIBUTOR AND STREET ADDRESS
+                        System.out.printf("%s, %s%n", brewery.get(0), brewery.get(1));
+                    }
+                }
+            }  catch (IndexOutOfBoundsException e){
+                e.printStackTrace();
+            }
+        }  // i-LOOP
+
+    } // displayDistributorWithBreweries METHOD
+
+
+
+    private static void saveBreweryWithDistributors(List<List<String>> distributors,
                                                     List<String> distributor,
-                                                    List<List<String>> breweryRecords,
+                                                    List<List<String>> breweries,
                                                     List<String> brewery,
                                                     String txtFilePath) {
 
@@ -151,20 +182,21 @@ public class Main {
         System.out.println("=================================================================");
         System.out.println();
 
+        CSVFileWriter.writeFile(breweries, brewery, distributors, distributor, txtFilePath);
     }
 
-    private static void saveDistributorWithBreweries(List<List<String>> distributorRecords,
+    private static void saveDistributorWithBreweries(List<List<String>> distributors,
                                                      List<String> distributor,
-                                                     List<List<String>> breweryRecords,
+                                                     List<List<String>> breweries,
                                                      List<String> brewery,
                                                      String txtFilePath) {
-//TODO: Call a writeToFile method???
-
         System.out.println();
         System.out.println("=================================================================");
         System.out.println("    Saving Kentucky Distributors with Craft Breweries Report     ");
         System.out.println("=================================================================");
         System.out.println();
+
+        CSVFileWriter.writeFile(distributors, distributor, breweries, brewery, txtFilePath);
 
     }
 

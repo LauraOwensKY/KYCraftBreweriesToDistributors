@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TextFileReader {
+public class CSVFileReader {
 
     public List<List<String>> readFile(String filename){
         List<List<String>> records = new ArrayList<>(); //TWO DIMENSIONAL TABLE
@@ -31,4 +31,4 @@ public class TextFileReader {
         }
     }
 
-} // class TextFileReader
+} // class CSVFileReader
